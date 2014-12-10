@@ -16,4 +16,5 @@ gem 'therubyracer',  platforms: :ruby
 gem 'less-rails'
 gem 'twitter-bootswatch-rails', '~> 3.1.1'
 gem 'twitter-bootswatch-rails-helpers'
+gem 'twitter-bootswatch-rails-fontawesome'
 gem 'bootstrap-generators', '~> 3.3.1'

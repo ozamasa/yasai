@@ -102,6 +102,10 @@ GEM
       execjs (>= 1.4.0)
       less-rails (>= 2.3)
       railties (>= 3.1)
+    twitter-bootswatch-rails-fontawesome (4.0.3.0)
+      less-rails (>= 2.3)
+      railties (>= 3.1)
+      twitter-bootswatch-rails
     twitter-bootswatch-rails-helpers (3.1.0.0)
       twitter-bootswatch-rails (~> 3.1.0)
     tzinfo (1.2.2)
@@ -124,5 +128,6 @@ DEPENDENCIES
   therubyracer
   turbolinks (~> 2.5.3)
   twitter-bootswatch-rails (~> 3.1.1)
+  twitter-bootswatch-rails-fontawesome
   twitter-bootswatch-rails-helpers
   uglifier (~> 2.6.0)
