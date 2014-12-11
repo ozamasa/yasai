@@ -1,0 +1,15 @@
+<div class="container" style="margin-top:60px;">
+  <h1>お客様番号を入力してください</h1>
+
+  <%= form_tag '/baskets', method: 'GET' do %>
+
+	<%= text_field_tag :user_id %>
+
+	<%= hidden_field_tag :tour, @tour_code %>
+
+	<%= submit_tag "次へ", class: "btn btn-primary" %>
+
+  <% end %>
+
+</div>
+

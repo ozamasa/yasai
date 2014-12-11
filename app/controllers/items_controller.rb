@@ -1,9 +1,24 @@
 class ItemsController < ApplicationController
+  before_action :set_tour, only: [:index, :putin]
+  before_action :set_user, only: [:index, :putin]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
 
   # GET /items
   def index
     @items = Item.all
+  end
+
+  # GET /items/1/putin
+  def putin
+    @item = Item.find(params[:id])
+    @basket = Basket.new
+    @basket.user_id = 1
+    @basket.item_id = @item.id
+    @basket.number = params[:num]
+    @basket.save!
+    redirect_to controller: :baskets, action: :index, tour: @tour_code, user_id: @user_id
+  rescue
+      render :index
   end
 
   # GET /items/1
@@ -54,5 +69,15 @@ class ItemsController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def item_params
       params[:item]
+    end
+
+    def set_tour
+      redirect_to '/tours' if params[:tour].blank?
+      @tour_code = params[:tour]
+    end
+
+    def set_user
+#      redirect_to action: :index, tour: @tour_code if params[:user_id].blank?
+      @user_id = params[:user_id]
     end
 end

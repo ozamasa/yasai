@@ -1,5 +1,14 @@
 Rails.application.routes.draw do
+  resources :tours
+
   resources :items
+  get 'items/:id/putin/:tour(/:user_id)' => 'items#putin'
+
+  resources :orders
+
+  resources :baskets, only: [:index, :edit, :destroy]
+  get 'baskets/user' => 'baskets#user'
+  post 'baskets/:tour/order/:user_id' => 'baskets#order'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
