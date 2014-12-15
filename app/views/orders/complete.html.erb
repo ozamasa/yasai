@@ -1,0 +1,19 @@
+<div class="container" style="margin-top:60px;">
+
+  <div class="page-header">
+    <h1>ご注文ありがとうございました!</h1>
+  </div>
+
+  <dl class="dl-horizontal">
+    <dt>お客様番号</dt>
+    <dd><%= @order.user_id %></dd>
+
+    <dt>合計金額</dt>
+    <dd><%= number_to_currency(@order.amount, :format => "%u%n", :unit => "￥", precision: 0) %></dd>
+  </dl>
+
+  <%= link_to "/tours/#{@tour.code}/user", :class => 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>　戻る
+  <% end %>
+
+</div>

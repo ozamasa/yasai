@@ -1,20 +1,22 @@
 Rails.application.routes.draw do
   resources :tours
+  get 'tours/:tour/user' => 'tours#user'
 
   resources :items
+  get 'items/:tour/:user_id' => 'items#index'
   get 'items/:id/putin/:tour(/:user_id)' => 'items#putin'
 
-  resources :orders
+  resources :baskets, only: [:index, :show, :destroy]
+  get 'baskets/:tour/order/:user_id' => 'baskets#order'
 
-  resources :baskets, only: [:index, :edit, :destroy]
-  get 'baskets/user' => 'baskets#user'
-  post 'baskets/:tour/order/:user_id' => 'baskets#order'
+  resources :orders
+  get 'orders/:id/complete' => 'orders#complete'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'items#index'
+  root 'tours#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

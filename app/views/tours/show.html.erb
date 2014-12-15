@@ -1,3 +1,5 @@
+<div class="container" style="margin-top:60px;">
+
 <div class="page-header">
   <%= link_to tours_path, :class => 'btn btn-default' do %>
     <span class="glyphicon glyphicon-list-alt"></span>
@@ -11,7 +13,11 @@
 </div>
 
 <dl class="dl-horizontal">
-  <dt>.:</dt>
-  <dd><%= @tour.. %></dd>
+  <dt>code</dt>
+  <dd><%= @tour.code %></dd>
 
+  <dt>name</dt>
+  <dd><%= @tour.name %></dd>
 </dl>
+
+</div>

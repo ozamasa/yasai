@@ -1,19 +1,48 @@
 class BasketsController < ApplicationController
-  before_action :set_tour, only: [:index, :user, :destroy]
-  before_action :set_user, only: [:index, :destroy]
-  before_action :set_basket, only: [:show, :edit, :update, :destroy]
+  before_action :set_tour, only: [:index, :destroy, :order]
+  before_action :set_user, only: [:index, :destroy, :order]
+  before_action :set_basket, only: [:destroy]
 
   # GET /baskets
   def index
-    @baskets = Basket.joins(:item).where(user_id: 1)
+    @baskets = Basket.joins(:item).where(tour_code: @tour_code, user_id: @user_id)
+  end
+
+  def order
+    ActiveRecord::Base.transaction do
+
+      @baskets = Basket.joins(:item).where(tour_code: @tour_code, user_id: @user_id)
+      raise if @baskets.blank?
+
+      @order = Order.new
+      @order.tour_id    = Tour.find_by_code(@tour_code).id
+      @order.user_id    = @user_id
+      
+      amount = 0
+      @baskets.each do |basket|
+        order_item = @order.order_items.build
+        order_item.item_id  = basket.item_id
+        order_item.number   = basket.number
+        order_item.price    = basket.item.price
+        amount += (order_item.number * order_item.price)
+      end
+
+      @order.amount     = amount
+      @order.save!
+
+      @baskets.destroy_all
+
+    end
+
+    redirect_to "/orders/#{@order.id}/complete"
+
+  rescue => e
+    logger.info e.message
+    render :index
   end
 
   # GET /baskets/1
   def show
-  end
-
-  # GET /baskets/user
-  def user
   end
 
   # GET /baskets/new

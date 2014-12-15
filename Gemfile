@@ -3,10 +3,15 @@ source "https://rubygems.org"
 ruby '2.1.5'
 
 gem 'rails', '~> 4.1.8'
-gem 'mysql2'
 
-gem 'pg', '0.17.1'
-gem 'rails_12factor', '0.0.2'
+group :development do
+  gem 'mysql2'
+end
+
+group :production do
+  gem 'pg', '0.17.1'
+  gem 'rails_12factor', '0.0.2'
+end
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'

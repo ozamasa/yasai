@@ -6,6 +6,10 @@ class ToursController < ApplicationController
     @tours = Tour.all
   end
 
+  # GET /tours/user
+  def user
+  end
+
   # GET /tours/1
   def show
   end
@@ -21,7 +25,9 @@ class ToursController < ApplicationController
 
   # POST /tours
   def create
-    @tour = Tour.new(tour_params)
+    @tour = Tour.new
+    @tour.code = tour_params[:code]
+    @tour.name = tour_params[:name]
 
     if @tour.save
       redirect_to @tour, notice: 'Tour was successfully created.'

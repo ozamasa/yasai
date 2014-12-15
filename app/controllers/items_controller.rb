@@ -12,9 +12,10 @@ class ItemsController < ApplicationController
   def putin
     @item = Item.find(params[:id])
     @basket = Basket.new
-    @basket.user_id = 1
-    @basket.item_id = @item.id
-    @basket.number = params[:num]
+    @basket.tour_code = @tour_code
+    @basket.user_id   = @user_id
+    @basket.item_id   = @item.id
+    @basket.number    = params[:num]
     @basket.save!
     redirect_to controller: :baskets, action: :index, tour: @tour_code, user_id: @user_id
   rescue
@@ -77,7 +78,7 @@ class ItemsController < ApplicationController
     end
 
     def set_user
-#      redirect_to action: :index, tour: @tour_code if params[:user_id].blank?
+      redirect_to "/tours/#{@tour_code}/user" if params[:user_id].blank?
       @user_id = params[:user_id]
     end
 end

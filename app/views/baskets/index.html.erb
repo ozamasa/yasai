@@ -42,7 +42,7 @@
 
         <tfoot>
           <tr>
-            <td colspan="3">合計金額</td>
+            <td colspan="3"><p class="pull-right">合計金額</p></td>
             <td><%= number_to_currency(amount, :format => "%u%n", :unit => "￥", precision: 0) %></td>
             <td></td>
           </tr>
@@ -55,9 +55,13 @@
       <h5>商品一覧へもどる</h5>
     <% end %>
 
-    <%#= link_to new_basket_path, :class => 'btn btn-danger' do %>
-      <!--<h5><span class="glyphicon glyphicon-plus"></span> <strong>注文を確定する</strong></h5>-->
-    <%# end %>
+    <%= link_to "/tours/#{@tour_code}/user", :class => 'btn btn-primary' do %>
+      <h5>お買い物をやめる</h5>
+    <% end %>
+
+    <%= link_to "/baskets/#{@tour_code}/order/#{@user_id}", :class => 'btn btn-danger' do %>
+      <h5><i class="fa fa-check"></i> <strong>注文を確定する</strong></h5>
+    <% end %>
 
 </div>
 

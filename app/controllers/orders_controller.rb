@@ -1,9 +1,14 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:show, :edit, :update, :destroy]
+  before_action :set_order, only: [:complete, :show, :edit, :update, :destroy]
+  before_action :set_tour, only: [:index, :show, :complete]
 
   # GET /orders
   def index
-    @orders = Order.all
+    @orders = Order.includes(:order_items).where(tour_id: @tour.id)
+  end
+
+  # GET /orders/1/complete
+  def complete
   end
 
   # GET /orders/1
@@ -53,6 +58,16 @@ class OrdersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def order_params
-      params.require(:order).permit! #(:.)
+      params[:order]
+    end
+
+    def set_tour
+      if @order.present?
+        @tour = Tour.find(@order.tour_id)
+      else
+        redirect_to '/tours' if params[:tour].blank?
+        @tour_code = params[:tour]
+        @tour = Tour.find_by_code(@tour_code)
+      end
     end
 end
