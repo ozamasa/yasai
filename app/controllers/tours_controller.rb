@@ -1,4 +1,5 @@
 class ToursController < ApplicationController
+  before_action :set_nav_active
   before_action :set_tour, only: [:show, :edit, :update, :destroy]
 
   # GET /tours
@@ -38,8 +39,11 @@ class ToursController < ApplicationController
 
   # PATCH/PUT /tours/1
   def update
-    if @tour.update(tour_params)
-      redirect_to @tour, notice: 'Tour was successfully updated.'
+    @tour.code = tour_params[:code]
+    @tour.name = tour_params[:name]
+
+    if @tour.save
+      redirect_to action: :index, notice: 'Tour was successfully updated.'
     else
       render :edit
     end
@@ -60,5 +64,9 @@ class ToursController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def tour_params
       params[:tour]
+    end
+
+    def set_nav_active
+      @nav_active = "Tour"
     end
 end

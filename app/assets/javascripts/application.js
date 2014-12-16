@@ -12,8 +12,14 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 //= require bootstrap
-//= require sandstone/loader
-//= require sandstone/bootswatch
+//= require moment
+//= require bootstrap-datetimepicker
+//= require flatly/loader
+//= require flatly/bootswatch
 
+var data = {'data-date-format': 'YYYY/MM/DD' };
+$(function(){
+  $('.datepicker').attr(data);
+  $('.datepicker').datetimepicker();
+});

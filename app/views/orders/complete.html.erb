@@ -4,16 +4,27 @@
     <h1>ご注文ありがとうございました!</h1>
   </div>
 
-  <dl class="dl-horizontal">
-    <dt>お客様番号</dt>
-    <dd><%= @order.user_id %></dd>
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">ご注文内容</h3>
+  </div>
+  <div class="panel-body">
+    <dl class="dl-horizontal">
+      <dt>お客様番号</dt>
+      <dd><%= @order.user_id %></dd>
 
-    <dt>合計金額</dt>
-    <dd><%= number_to_currency(@order.amount, :format => "%u%n", :unit => "￥", precision: 0) %></dd>
-  </dl>
+      <dt>合計金額</dt>
+      <dd><%= number_to_currency(@order.amount, :format => "%u%n", :unit => "￥", precision: 0) %></dd>
+    </dl>
+  </div>
+</div>
 
-  <%= link_to "/tours/#{@tour.code}/user", :class => 'btn btn-primary' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>　戻る
-  <% end %>
+
+
+  <div class="row" style="text-align:center;">
+    <%= link_to "/tours/#{@tour.code}/user", :class => 'btn btn-default btn-lg' do %>
+      <i class="fa fa-sign-out"></i>　お買い物を終了する
+    <% end %>
+  </div>
 
 </div>

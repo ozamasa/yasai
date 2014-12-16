@@ -1,17 +1,17 @@
 <div class="container" style="margin-top:60px;">
 
-<div class="page-header">
-  <%= link_to tours_path, :class => 'btn btn-default' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
-    Back
-  <% end %>
-  <%= link_to @tour, :class => 'btn btn-primary' do %>
-    <span class="glyphicon glyphicon-info-sign"></span>
-    Show
-  <% end %>
-  <h1>Editing tour</h1>
-</div>
+　　<div class="page-header">
+  　　<h1>ツアー変更</h1>
 
-<%= render 'form' %>
+	<%= link_to tours_path, :class => 'btn btn-default' do %>
+	  <i class="fa fa-arrow-left"></i> ツアー一覧へ戻る
+	<% end %>
+	<%= link_to @tour, :class => 'btn btn-default' do %>
+	　　<i class="fa fa-arrow-left"></i>  詳細へ戻る
+	<% end %>
+
+　　</div>
+
+　　<%= render 'form' %>
 
 </div>

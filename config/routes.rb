@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get 'tours/:tour/user' => 'tours#user'
 
   resources :items
-  get 'items/:tour/:user_id' => 'items#index'
+  get 'items/tour/:tour' => 'items#tour_index'
   get 'items/:id/putin/:tour(/:user_id)' => 'items#putin'
 
   resources :baskets, only: [:index, :show, :destroy]

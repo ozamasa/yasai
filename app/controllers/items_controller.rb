@@ -1,10 +1,10 @@
 class ItemsController < ApplicationController
-  before_action :set_tour, only: [:index, :putin]
-  before_action :set_user, only: [:index, :putin]
+  before_action :set_nav_active
+  before_action :set_tour, only: [:tour_index, :putin]
+  before_action :set_user, only: [:tour_index, :putin]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
 
-  # GET /items
-  def index
+  def tour_index
     @items = Item.all
   end
 
@@ -22,6 +22,11 @@ class ItemsController < ApplicationController
       render :index
   end
 
+  # GET /items
+  def index
+    @items = Item.all
+  end
+
   # GET /items/1
   def show
   end
@@ -37,10 +42,24 @@ class ItemsController < ApplicationController
 
   # POST /items
   def create
-    @item = Item.new(item_params)
+
+    FileUtils.mkdir_p(Constants::ROOT_DIR) unless FileTest.exist?(Constants::ROOT_DIR)
+
+    imgfile = item_params[:image_path]
+    upload_path = Constants::ROOT_DIR + imgfile.original_filename
+    File.open(upload_path, 'wb') { |f| f.write(imgfile.read) }
+
+    @item = Item.new
+    @item.code          = item_params[:code]
+    @item.name          = item_params[:name]
+    @item.price         = item_params[:price]
+    @item.description   = item_params[:description]
+    @item.producer_id   = item_params[:producer_id]
+    @item.harvested_at  = item_params[:harvested_at]
+    @item.image_path    = imgfile.original_filename
 
     if @item.save
-      redirect_to @item, notice: 'Item was successfully created.'
+      redirect_to @item, notice: '商品情報を登録しました.'
     else
       render :new
     end
@@ -48,8 +67,28 @@ class ItemsController < ApplicationController
 
   # PATCH/PUT /items/1
   def update
-    if @item.update(item_params)
-      redirect_to @item, notice: 'Item was successfully updated.'
+
+    FileUtils.mkdir_p(Constants::ROOT_DIR) unless FileTest.exist?(Constants::ROOT_DIR)
+
+    if @item.image_path
+      delete_path = Constants::ROOT_DIR + @item.image_path
+      File.delete(delete_path) if FileTest.exist?(delete_path)
+    end
+
+    imgfile = item_params[:image_path]
+    upload_path = Constants::ROOT_DIR + imgfile.original_filename
+    File.open(upload_path, 'wb') { |f| f.write(imgfile.read) }
+
+    @item.code          = item_params[:code]
+    @item.name          = item_params[:name]
+    @item.price         = item_params[:price]
+    @item.description   = item_params[:description]
+    @item.producer_id   = item_params[:producer_id]
+    @item.harvested_at  = item_params[:harvested_at]
+    @item.image_path    = imgfile.original_filename
+
+    if @item.save
+      redirect_to @item, notice: '商品情報を更新しました.'
     else
       render :edit
     end
@@ -58,7 +97,7 @@ class ItemsController < ApplicationController
   # DELETE /items/1
   def destroy
     @item.destroy
-    redirect_to items_url, notice: 'Item was successfully destroyed.'
+    redirect_to items_url #, notice: 'Item was successfully destroyed.'
   end
 
   private
@@ -75,10 +114,15 @@ class ItemsController < ApplicationController
     def set_tour
       redirect_to '/tours' if params[:tour].blank?
       @tour_code = params[:tour]
+      @tour = Tour.find_by_code(params[:tour])
     end
 
     def set_user
       redirect_to "/tours/#{@tour_code}/user" if params[:user_id].blank?
       @user_id = params[:user_id]
+    end
+
+    def set_nav_active
+      @nav_active = "Item"
     end
 end

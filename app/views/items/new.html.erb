@@ -1,5 +1,13 @@
-<h1>New item</h1>
+<div class="container" style="margin-top:60px;">
+　　<div class="page-header">
+  　　<h1>商品新規登録</h1>
 
-<%= render 'form' %>
+	<%= link_to items_path, :class => 'btn btn-default' do %>
+	  <i class="fa fa-list-alt"></i>  一覧画面へ
+	<% end %>
 
-<%= link_to 'Back', items_path %>
+　　</div>
+
+　　<%= render 'form' %>
+
+</div>

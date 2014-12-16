@@ -1,0 +1,49 @@
+<div class="container" style="margin-top:60px;">
+
+  <div class="page-header">
+    <h1><%= @tour.name %> 商品一覧</h1>
+
+    <%= link_to baskets_path(tour: @tour_code, user_id: @user_id), :class => 'btn btn-primary' do %>
+      <i class="fa fa-shopping-cart"></i> お買い物かご
+    <% end %>
+
+  </div>
+
+  <%= form_tag items_path, method: 'get', id: 'item_form' do %>
+
+    <% @items.each_with_index do |item, i| %>
+      <div class="row">
+        <div class="col-sm-12">
+
+          <div class="panel panel-primary">
+            <div class="panel-heading"><%= item.name %></div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-sm-4">
+                  <p><%= img_tag item.image_path, width: 300, class: "img-responsive img-rounded" %></p>
+                </div>
+                <div class="col-sm-8">
+                  <p><%= item.description %></p>
+                  <p>価格: <%= number_to_currency(item.price, :format => "%u%n", :unit => "￥", precision: 0) %></p>
+                  <a class="btn btn-info" href="/items/<%= item.id %>/putin/<%= @tour_code %>/<%= @user_id %>?num=1"><h4>1個</h4></a>
+                  <a class="btn btn-info" href="/items/<%= item.id %>/putin/<%= @tour_code %>/<%= @user_id %>?num=2"><h4>2個</h4></a>
+                  <a class="btn btn-info" href="/items/<%= item.id %>/putin/<%= @tour_code %>/<%= @user_id %>?num=3"><h4>3個</h4></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <%= hidden_field_tag :item_code, item.code %>
+        </div><!-- /.col-sm-4 -->
+      </div>
+    <% end %>
+  <% end %>
+
+  <div style="margin:10px 0;">
+    <%= link_to baskets_path(tour: @tour_code, user_id: @user_id), :class => 'btn btn-primary' do %>
+      <i class="fa fa-shopping-cart"></i> お買い物かご
+    <% end %>
+  </div>
+
+</div>
+
+

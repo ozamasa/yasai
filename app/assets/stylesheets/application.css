@@ -12,7 +12,8 @@
  *
  *
  *= require_self
- *= require sandstone/loader
- *= require sandstone/bootswatch
- *= require sandstone/font-awesome
+ *= require bootstrap-datetimepicker
+ *= require flatly/loader
+ *= require flatly/bootswatch
+ *= require flatly/font-awesome
  */
