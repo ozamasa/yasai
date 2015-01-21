@@ -41,8 +41,14 @@
             <li class="<%= 'active' if @nav_active == 'Cultivar' %>"><a href="/cultivars">品目マスタ</a></li>
             <li class="<%= 'active' if @nav_active == 'User' %>"><a href="/users">ユーザーマスタ</a></li>
 
-            <li class="<%= 'active' if @nav_active == 'Tour' %>"><a href="/tours">TOUR</a></li>
-            <li class="<%= 'active' if @nav_active == 'Item' %>"><a href="/items">ITEM</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">ツアー</a>
+              <ul class="dropdown-menu">
+                <li class="<%= 'active' if @nav_active == 'Tour' %>"><a href="/tours">TOUR</a></li>
+                <li class="<%= 'active' if @nav_active == 'Item' %>"><a href="/items">ITEM</a></li>
+              </ul>
+            </li>
+
           </ul>
         </div><!--/.nav-collapse -->
       </div>
