@@ -26,4 +26,8 @@ $(function(){
 
   $('.datetimepicker').attr(data_dt);
   $('.datetimepicker').datetimepicker();  
+
+  $("[rel=popover]").popover();
+  $("[rel=tooltip]").tooltip();
+  
 });

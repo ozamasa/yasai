@@ -48,9 +48,12 @@ class SchedulesController < ApplicationController
     tbl = Schedule.arel_table
     conditions = tbl[:date].eq(@date)
     @schedules = Schedule.where(conditions).group_by(&:cultivar_id)
-
     @cultivars = Cultivar.all
 
+    @cultivar_sums = {}
+    @cultivars.each do |cultivar|
+      @cultivar_sums[cultivar.id] = Schedule.find_by_sql(Schedule.sql_sum(@date, cultivar.id))
+    end
   end
 
   # GET /schedules/new

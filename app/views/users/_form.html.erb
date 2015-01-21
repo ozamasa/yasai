@@ -13,28 +13,56 @@
   <% end %>
 
 　　<fieldset>
-     <div class="form-group">
-        <label for="#" class="col-lg-2 control-label">名前</label>
-        <div class="col-lg-10">
-          <%= f.text_field :name, class: "form-control" %>
-        </div>
+    <div class="form-group">
+      <label for="#" class="col-lg-2 control-label">名前</label>
+      <div class="col-lg-10">
+        <%= f.text_field :name, class: "form-control" %>
       </div>
+    </div>
 
-     <div class="form-group">
-        <label for="#" class="col-lg-2 control-label">名前カナ</label>
-        <div class="col-lg-10">
-          <%= f.text_field :name_kana, class: "form-control" %>
-        </div>
+    <div class="form-group">
+      <label for="#" class="col-lg-2 control-label">名前（カナ）</label>
+      <div class="col-lg-10">
+        <%= f.text_field :name_kana, class: "form-control" %>
       </div>
+    </div>
 
-      <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-          <%= link_to users_path, :class => 'btn btn-default' do %>
-            <span class="glyphicon glyphicon-list-alt"></span> 一覧に戻る
-          <% end %>
-          <%= f.submit '登録する', :class => "btn btn-primary" %>
-        </div>
+    <div class="form-group">
+      <label for="#" class="col-lg-2 control-label">Eメール</label>
+      <div class="col-lg-10">
+        <%= f.text_field :email, type: "email", class: "form-control" %>
       </div>
+    </div>
+
+    <div class="form-group">
+      <label for="#" class="col-lg-2 control-label">住所</label>
+      <div class="col-lg-10">
+        <%= f.text_field :address, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="#" class="col-lg-2 control-label">電話</label>
+      <div class="col-lg-10">
+        <%= f.text_field :tel, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="#" class="col-lg-2 control-label">ユーザー区分</label>
+      <div class="col-lg-10">
+        <%= f.select :auth, options_for_select(User.auth_seloptions, selected: @user.auth), {include_blank: true}, {class: "form-control"} %>
+      </div>
+    </div>
+          
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <%= link_to users_path, :class => 'btn btn-default' do %>
+          <span class="glyphicon glyphicon-list-alt"></span> 一覧に戻る
+        <% end %>
+        <%= f.submit '登録する', :class => "btn btn-primary" %>
+      </div>
+    </div>
   
   </fieldset>
 <% end %>

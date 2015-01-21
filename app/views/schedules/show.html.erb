@@ -7,27 +7,28 @@
 </div>
 
 <fieldset>
-<% @cultivars.each do |cultivar| %>
-  
-    <div class="form-group">
-      <label for="#" class="col-lg-2 control-label"><%= cultivar.name %></label>
-      <div class="col-lg-10">
-        <% if @schedules.present? %>
-          <% @schedules[cultivar.id].each do |schedule| %>
-          <ul class="list-inline">
-            <li><span><%= schedule.producer.name rescue nil %></span></li>
-            <li><span><%= schedule.amount %></span></li>
-            <li><span style="font-size: 90%"><%= cultivar.unit %></span></li>
-          </ul>
-          <% end %>
-        <% end %>
-      </div>
-    </div>
+  <% @cultivars.each do |cultivar| %>
+
+  <div class="list-group">
+    <a href="#" class="list-group-item active title">
+      <span><%= cultivar.name %></span>
+      <span class="pull-right" style="font-size:110%"><%= raw "#{@cultivar_sums[cultivar.id].first.sum}#{cultivar.unit}" rescue nil %></span></a>
+
+    <% if @schedules && @schedules[cultivar.id] %>
+      <% @schedules[cultivar.id].each do |schedule| %>
+
+        <a href="/schedules/<%= schedule.id %>/edit" class="list-group-item">
+          <span><%= schedule.producer.name rescue nil %>:</span>
+          <span><%= schedule.amount %></span>
+          <span style="font-size: 90%"><%= cultivar.unit %></span></a>
+
+      <% end %>
+    <% else %>
+      <a href="#" class="list-group-item"><span>出荷予定なし</span></a>
+    <% end %>
+  </div>
   
 <% end %>
 
 </fieldset>
-
-
-
 </div>

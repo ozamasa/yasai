@@ -39,7 +39,9 @@
 
       <tr>
         <% (@from_date..@to_date).each do |date| %>
-          <td class="<%= today_class(date) %>"><%= raw @events[date].map(&:display_event).join("<br />") %></td>
+          <td class="<%= today_class(date) %>">
+          <%= raw "#{@events[date].map(&:display_event).join('<br />')}" %>
+          </td>
         <% end %>
       </tr>
 
