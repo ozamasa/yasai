@@ -19,7 +19,11 @@
 //= require flatly/bootswatch
 
 var data = {'data-date-format': 'YYYY/MM/DD' };
+var data_dt = {'data-date-format': 'YYYY/MM/DD HH:mm' };
 $(function(){
   $('.datepicker').attr(data);
   $('.datepicker').datetimepicker();
+
+  $('.datetimepicker').attr(data_dt);
+  $('.datetimepicker').datetimepicker();  
 });

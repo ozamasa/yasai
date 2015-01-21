@@ -17,3 +17,22 @@
  *= require flatly/bootswatch
  *= require flatly/font-awesome
  */
+
+.show-grid [class^=col-] {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	background-color: #eee;
+	background-color: rgba(86,61,124,.15);
+	border: 1px solid #ddd;
+	border: 1px solid rgba(86,61,124,.2);
+}
+.today {
+	background-color: #D7ECF4;	
+}
+.cal_date {
+  font-size: 120%;
+  font-family: "Lato", Arial, "ヒラギノ角ゴPro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", sans-serif;  
+}
+.sum {
+  font-size: 110%;
+}

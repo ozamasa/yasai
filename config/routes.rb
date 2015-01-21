@@ -1,4 +1,18 @@
 Rails.application.routes.draw do
+  resources :events
+
+  resources :users
+
+  resources :categories
+
+  resources :cultivars
+
+  resources :schedules
+  get '/schedules/:year/:month/:day' => 'schedules#index'
+  get '/schedules/show/:year/:month/:day' => 'schedules#show'
+  get '/schedules/:year/:month/:day/:user' => 'schedules#my_index'
+  get '/schedules/:year/:month/:day/:user/new' => 'schedules#new'
+
   resources :tours
   get 'tours/:tour/user' => 'tours#user'
 
@@ -16,7 +30,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'tours#index'
+  root 'schedules#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

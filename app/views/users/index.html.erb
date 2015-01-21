@@ -1,0 +1,44 @@
+<div class="container" style="margin-top:60px;">
+
+  <div class="page-header">
+    <h1>ユーザー一覧</h1>
+    <%= link_to new_user_path, :class => 'btn btn-primary' do %>
+      <span class="glyphicon glyphicon-plus"></span>　新規登録
+    <% end %>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>アカウント</th>
+          <th>名前</th>
+          <th>名前カナ</th>
+          <th>区分</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <%= content_tag_for(:tr, @users) do |user| %>
+          <td><%=  %></td>
+          <td><%= link_to user.name, user %></td>
+          <td><%= user.name_kana %></td>
+          <td><%= user.display_auth %></td>
+          <td class="text-center">
+            <%= link_to edit_user_path(user) do %>
+              <span class="glyphicon glyphicon-pencil"></span>
+            <% end %></td>
+          <td class="text-center">
+            <%= link_to user, method: :delete, data: { confirm: 'Are you sure?' } do %>
+              <span class="glyphicon glyphicon-trash"></span>
+            <% end %></td>
+
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
