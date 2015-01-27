@@ -1,8 +1,8 @@
 <div class="container" style="margin-top:60px;">
 
-  <div class="page-header">
-    <h1>商品一覧</h1>
-    <%= link_to new_item_path, :class => 'btn btn-primary' do %>
+　 <div class="page-header">
+    <span class="page_title"><span class="glyphicon glyphicon-tags"></span> 商品一覧</span>
+    <%= link_to new_item_path, :class => 'btn btn-primary pull-right' do %>
       <span class="glyphicon glyphicon-plus"></span> 新規登録
     <% end %>
   </div>
@@ -10,14 +10,14 @@
   <div class="table-responsive">
     <table class="table table-bordered table-hover">
       <thead>
-        <tr>
+        <tr class="success">
           <th></th>
           <th>コード</th>
+          <th>品目</th>
           <th>名称</th>
           <th>単価</th>
-          <th>説明</th>
           <th>生産者</th>
-          <th>収穫日</th>
+          <th>単位</th>
           <th></th>
           <th></th>
         </tr>
@@ -27,17 +27,17 @@
         <%= content_tag_for(:tr, @items) do |item| %>
           <td><%= img_tag item.image_path, width: 150, class: "img-responsive img-rounded" %></td>
           <td><%= item.code %></td>
+          <td><%= item.cultivar.name rescue nil %></td>
           <td><%= item.name %></td>
           <td><%= number_to_currency(item.price, :format => "%u%n", :unit => "￥", precision: 0) %></td>
-          <td><%= item.description %></td>
-          <td><%= item.producer_id %></td>
-          <td><%= item.harvested_at.strftime('%Y/%m/%d') if item.harvested_at %></td>
-          <td>
+          <td><%= item.producer.name rescue nil %></td>
+          <td><%= item.unit %></td>
+          <td class="text-center">
             <%= link_to item, method: 'GET' do %>
               <i class="fa fa-pencil"></i>
             <% end %>
           </td>
-          <td>
+          <td class="text-center">
             <%= link_to item, method: 'DELETE', data: { confirm: 'この商品を削除します。よろしいですか？' } do %>
               <i class="fa fa-trash-o"></i>
             <% end %>

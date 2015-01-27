@@ -1,6 +1,6 @@
 <div class="container" style="margin-top:60px;">
   <div class="page-header">
-    <h1><i class="fa fa-shopping-cart fa-lg"></i>　お買い物かご</h1>
+    <h1><i class="fa fa-shopping-cart fa-lg"></i>　カート</h1>
   </div>
 
     <div class="table-responsive">
@@ -35,7 +35,7 @@
             <% amount += (basket.item.price * basket.number) %>
             <%= number_to_currency((basket.item.price * basket.number), :format => "%u%n", :unit => "￥", precision: 0) %></td>
             <td>
-              <%= link_to "/baskets/#{basket.id}?tour=#{@tour_code}&user_id=#{@user_id}", method: :delete, data: { confirm: 'この商品を削除します。よろしいですか？' } do %>
+              <%= link_to "/baskets/#{basket.id}?tour=#{@app_tour.code}&participant=#{@participant}", method: :delete, data: { confirm: 'この商品を削除します。よろしいですか？' } do %>
               <i class="fa fa-trash-o"></i> 削除
               <% end %>
             </td>
@@ -55,22 +55,21 @@
     </div>
 
     <div class="row">
-    <div class="pull-left">
-      <%= link_to items_path(tour: @tour_code, user_id: @user_id), :class => 'btn btn-default' do %>
-        <i class="fa fa-arrow-left"></i> 商品一覧へ戻る
-      <% end %>
+      <div class="pull-left">
+        <%= link_to "/shopping/#{@app_tour.code}/#{@participant}", :class => 'btn btn-default' do %>
+          <i class="fa fa-arrow-left"></i> 商品一覧へ戻る
+        <% end %>
 
-      <%= link_to "/tours/#{@tour_code}/user", :class => 'btn btn-default' do %>
-        <i class="fa fa-minus-circle"></i>　お買い物をやめる
-      <% end %>
-    </div>
+        <%= link_to "/tours/#{@app_tour.code}/seluser", :class => 'btn btn-default' do %>
+          <i class="fa fa-minus-circle"></i>　お買い物をやめる
+        <% end %>
+      </div>
 
-    <div class="pull-right">
-      <%= link_to "/baskets/#{@tour_code}/order/#{@user_id}", :class => 'btn btn-danger' do %>
-        <i class="fa fa-check"></i> <strong>注文を確定する</strong>
-      <% end %>
-    </div>
-
+      <div class="pull-right">
+        <%= link_to "/baskets/#{@app_tour.code}/order/#{@participant}", :class => 'btn btn-danger' do %>
+          <i class="fa fa-check"></i> <strong>注文を確定する</strong>
+        <% end %>
+      </div>
     </div>
 
 </div>

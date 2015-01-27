@@ -17,9 +17,13 @@ module ApplicationHelper
     'today' if date == Date.today
   end
 
+  def auth_class(idx)
+    %w(primary danger success info)[idx - 1]
+  end
+
   def hbr(str)
     return if str.blank?
-    str.gsub(/\r\n|\r|\n/, "<br />\n")
+    raw str.gsub(/\r\n|\r|\n/, "<br />\n")
   end
 
 end

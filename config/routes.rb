@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :portal
+
   resources :events
 
   resources :users
@@ -8,20 +10,24 @@ Rails.application.routes.draw do
   resources :cultivars
 
   resources :schedules
+  get '/myschedule/:year/:month/:day/:user' => 'schedules#my_index'
+  get '/schedules/:year/:month/:day/:store' => 'schedules#index'
+  get '/schedules/show/:year/:month/:day/:store' => 'schedules#show'
+
   get '/schedules/:year/:month/:day' => 'schedules#index'
-  get '/schedules/show/:year/:month/:day' => 'schedules#show'
   get '/schedules/:year/:month/:day/:user' => 'schedules#my_index'
   get '/schedules/:year/:month/:day/:user/new' => 'schedules#new'
 
   resources :tours
-  get 'tours/:tour/user' => 'tours#user'
+  get 'tours/:tour/seluser' => 'tours#seluser'
 
   resources :items
-  get 'items/tour/:tour' => 'items#tour_index'
-  get 'items/:id/putin/:tour(/:user_id)' => 'items#putin'
+  get 'shopping/:tour/:participant' => 'items#shopping_index'
+  get 'items/:id/putin/:tour(/:participant)' => 'items#putin'
 
   resources :baskets, only: [:index, :show, :destroy]
-  get 'baskets/:tour/order/:user_id' => 'baskets#order'
+  get 'baskets/:tour/:participant' => 'baskets#index'
+  get 'baskets/:tour/order/:participant' => 'baskets#order'
 
   resources :orders
   get 'orders/:id/complete' => 'orders#complete'
@@ -30,7 +36,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'schedules#index'
+  root 'portal#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

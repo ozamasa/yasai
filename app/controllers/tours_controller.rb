@@ -7,8 +7,10 @@ class ToursController < ApplicationController
     @tours = Tour.all
   end
 
-  # GET /tours/user
-  def user
+  # GET /tours/seluser
+  def seluser
+    redirect_to action: :index unless params[:tour]
+    @tour = Tour.find_by_id(params[:tour])
   end
 
   # GET /tours/1
@@ -26,12 +28,9 @@ class ToursController < ApplicationController
 
   # POST /tours
   def create
-    @tour = Tour.new
-    @tour.code = tour_params[:code]
-    @tour.name = tour_params[:name]
-
+    @tour = Tour.new(tour_params)
     if @tour.save
-      redirect_to @tour, notice: 'Tour was successfully created.'
+      redirect_to action: :index, notice: 'Event was successfully created.'
     else
       render :new
     end
@@ -39,10 +38,7 @@ class ToursController < ApplicationController
 
   # PATCH/PUT /tours/1
   def update
-    @tour.code = tour_params[:code]
-    @tour.name = tour_params[:name]
-
-    if @tour.save
+    if @tour.update(tour_params)
       redirect_to action: :index, notice: 'Tour was successfully updated.'
     else
       render :edit
@@ -63,7 +59,7 @@ class ToursController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def tour_params
-      params[:tour]
+      params.require(:tour).permit(:code, :name, :start_date, :end_date, :participant_num, :store_id)
     end
 
     def set_nav_active

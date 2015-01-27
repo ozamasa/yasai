@@ -1,7 +1,7 @@
 <div class="container" style="margin-top:60px;">
 
 <div class="page-header">
-  <h1>直売所スケジュール</h1>
+  <h1><%= @app_store.try(:name) %>スケジュール</h1>
 </div>
 
 <ul class="pager">
@@ -9,49 +9,49 @@
   <% prevday = @from_date - 7.days %>
   <% nextday = @to_date + 1.day %>
   <li class="previous">
-    <a href="/schedules/<%= prevday.year %>/<%= prevday.month %>/<%= prevday.day %>"><i class="fa fa-arrow-left"></i> 前へ</a>
+    <a href="/schedules/<%= prevday.year %>/<%= prevday.month %>/<%= prevday.day %>/<%= @app_store.id %>"><i class="fa fa-arrow-left"></i> 前へ</a>
   </li>
-  <li><a href="/schedules/<%= today.year %>/<%= today.month %>/<%= today.day %>">今日</a></li>
+  <li><a href="/schedules/<%= today.year %>/<%= today.month %>/<%= today.day %>/<%= @app_store.id %>">今日</a></li>
   <li class="next">
-    <a href="/schedules/<%= nextday.year %>/<%= nextday.month %>/<%= nextday.day %>">次へ <i class="fa fa-arrow-right"></i></a>
+    <a href="/schedules/<%= nextday.year %>/<%= nextday.month %>/<%= nextday.day %>/<%= @app_store.id %>">次へ <i class="fa fa-arrow-right"></i></a>
   </li>
 </ul>
 
+
 <div class="table-responsive">
 
-  <table class="table table-bordered">
+  <table class="table table-bordered table-condensed">
     <thead>
       <tr>
         <% (@from_date..@to_date).each do |date| %>
-          <th style="width:150px;" class="cal_date <%= wday_color_class(date) %> text-center"><%= date.strftime('%-m月%-d日') %> (<%= wday_tag(date) %>)</th>
+          <th style="width:14%" class="cal_date <%= wday_color_class(date) %> text-center"><%= date.strftime('%-m月%-d日') %> (<%= wday_tag(date) %>)</th>
         <% end %>
       </tr>
     </thead>
 
     <tbody>
-      <% if false %>
       <tr>
         <% (@from_date..@to_date).each do |date| %>
-          <td><%= @weathers[date] %></td>
-        <% end %>
-      </tr>
-      <% end %>
-
-      <tr>
-        <% (@from_date..@to_date).each do |date| %>
-          <td class="<%= today_class(date) %>">
-          <%= raw "#{@events[date].map(&:display_event).join('<br />')}" %>
+          <td class="<%= today_class(date) %>" style="padding:2px;">
+            <ul class="list-group">
+              <%= content_tag_for(:li, @events[date], class: 'list-group-item title_sm', style: "background-color:#f0fff0; border:0") do |event| %>
+                <%= event.display_event %>
+              <% end %>
+            </ul>
+          <%#= raw "#{@events[date].map(&:display_event).join('<br />')}" %>
           </td>
         <% end %>
       </tr>
 
       <tr>
         <% (@from_date..@to_date).each do |date| %>
-          <td class="<%= today_class(date) %>">
-            <% @schedules[date].each do |t| %>
-              <% cultivar = Cultivar.find_by_id(t.cultivar_id) %>
-              <%= raw "#{Cultivar.find_by_id(t.cultivar_id).name}: <span class='sum'>#{t.sum}</span> #{cultivar.unit} <br>" %>
-            <% end %>
+          <td class="<%= today_class(date) %>" style="padding:2px;">
+            <ul class="list-group">
+              <% @schedules[date].each do |t| %>
+                <% cultivar = Cultivar.find_by_id(t.cultivar_id) %>
+                <li class="list-group-item" style="border:0"><%= "#{Cultivar.find_by_id(t.cultivar_id).name}: #{t.sum} #{cultivar.unit}" %></li>
+              <% end %>
+            </ul>
           </td>
         <% end %>
       </tr>
@@ -59,7 +59,7 @@
       <tr>
         <% (@from_date..@to_date).each do |date| %>
           <td class="text-center <%= today_class(date) %>">
-            <a href="/schedules/show/<%= date.year %>/<%= date.month %>/<%= date.day %>" class="btn btn-default btn-xs">出荷予定詳細</a></td>
+            <a href="/schedules/show/<%= date.year %>/<%= date.month %>/<%= date.day %>/<%= @app_store.id %>" class="btn btn-default btn-xs">入荷予定詳細</a></td>
         <% end %>
       </tr>
 
@@ -68,10 +68,26 @@
   </table>
 </div>
 
+<% if false %>
 <ul class="pager">
   <li><a href="/schedules/<%= @from_date.year %>/<%= @from_date.month %>/<%= @from_date.day %>/<%= @app_user %>">
   <span class="glyphicon glyphicon-user"></span> マイスケジュール</a></li>
 </ul>
+<% end %>
 
 </div>
+
+<style type="text/css">
+.table {
+  min-width: 640px;
+  table-layout: fixed;
+  word-wrap: break-word;
+}
+
+.table-responsive > .table > thead > tr > th,
+.table-responsive > .table > thead > tr > td, 
+.table-responsive > .table > tbody > tr > td {
+  white-space: normal; 
+}
+</style>
 

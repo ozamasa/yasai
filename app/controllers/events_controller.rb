@@ -4,7 +4,7 @@ class EventsController < ApplicationController
 
   # GET /events
   def index
-    @events = Event.all.order(:start_at)
+    @events = Event.where(store_id: @app_store.id).order(:start_at)
   end
 
   # GET /events/1
@@ -23,6 +23,7 @@ class EventsController < ApplicationController
   # POST /events
   def create
     @event = Event.new(event_params)
+    @event.store_id = @app_store.id
 
     if @event.save
       redirect_to @event, notice: 'Event was successfully created.'
@@ -54,10 +55,11 @@ class EventsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def event_params
-      params.require(:event).permit(:start_at, :end_at, :title, :place, :contact)
+      params.require(:event).permit(:store_id, :start_at, :end_at, :title, :notes)
     end
 
     def set_nav_active
+      redirect_to :root unless @app_store
       @nav_active = "Event"
     end
 end

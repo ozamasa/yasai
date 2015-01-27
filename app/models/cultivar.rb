@@ -2,6 +2,7 @@ class Cultivar < ActiveRecord::Base
 
   belongs_to :category
   has_many :schedules
+  has_many :items
 
   def self.seloptions(category_id = nil)
   	tbl = Cultivar.arel_table

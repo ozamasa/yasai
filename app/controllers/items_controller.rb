@@ -1,10 +1,10 @@
 class ItemsController < ApplicationController
   before_action :set_nav_active
-  before_action :set_tour, only: [:tour_index, :putin]
-  before_action :set_user, only: [:tour_index, :putin]
+#  before_action :set_tour, only: [:shopping_index, :putin]
+  before_action :set_user, only: [:shopping_index, :putin]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
 
-  def tour_index
+  def shopping_index
     @items = Item.all
   end
 
@@ -12,12 +12,12 @@ class ItemsController < ApplicationController
   def putin
     @item = Item.find(params[:id])
     @basket = Basket.new
-    @basket.tour_code = @tour_code
-    @basket.user_id   = @user_id
+    @basket.tour_code = @app_tour.code
+    @basket.user_id   = params[:participant]
     @basket.item_id   = @item.id
     @basket.number    = params[:num]
     @basket.save!
-    redirect_to controller: :baskets, action: :index, tour: @tour_code, user_id: @user_id
+    redirect_to controller: :baskets, action: :index, tour: @app_tour.code, participant: params[:participant]
   rescue
       render :index
   end
@@ -46,17 +46,13 @@ class ItemsController < ApplicationController
     FileUtils.mkdir_p(Constants::ROOT_DIR) unless FileTest.exist?(Constants::ROOT_DIR)
 
     imgfile = item_params[:image_path]
-    upload_path = Constants::ROOT_DIR + imgfile.original_filename
-    File.open(upload_path, 'wb') { |f| f.write(imgfile.read) }
 
-    @item = Item.new
-    @item.code          = item_params[:code]
-    @item.name          = item_params[:name]
-    @item.price         = item_params[:price]
-    @item.description   = item_params[:description]
-    @item.producer_id   = item_params[:producer_id]
-    @item.harvested_at  = item_params[:harvested_at]
-    @item.image_path    = imgfile.original_filename
+    @item = Item.new(item_params)
+    if imgfile
+      upload_path = Constants::ROOT_DIR + imgfile.original_filename
+      File.open(upload_path, 'wb') { |f| f.write(imgfile.read) }
+      @item.image_path    = imgfile.original_filename
+    end
 
     if @item.save
       redirect_to @item, notice: '商品情報を登録しました.'
@@ -76,16 +72,13 @@ class ItemsController < ApplicationController
     end
 
     imgfile = item_params[:image_path]
-    upload_path = Constants::ROOT_DIR + imgfile.original_filename
-    File.open(upload_path, 'wb') { |f| f.write(imgfile.read) }
 
-    @item.code          = item_params[:code]
-    @item.name          = item_params[:name]
-    @item.price         = item_params[:price]
-    @item.description   = item_params[:description]
-    @item.producer_id   = item_params[:producer_id]
-    @item.harvested_at  = item_params[:harvested_at]
-    @item.image_path    = imgfile.original_filename
+    @item.attributes = item_params
+    if imgfile
+      upload_path = Constants::ROOT_DIR + imgfile.original_filename
+      File.open(upload_path, 'wb') { |f| f.write(imgfile.read) }
+      @item.image_path    = imgfile.original_filename
+    end
 
     if @item.save
       redirect_to @item, notice: '商品情報を更新しました.'
@@ -108,21 +101,21 @@ class ItemsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def item_params
-      params[:item]
+      params.require(:item).permit(:code, :cultivar_id, :name, :price, :description, :image_path, :producer_id, :cultivar_id, :harvested_at, :unit)      
     end
 
     def set_tour
       redirect_to '/tours' if params[:tour].blank?
-      @tour_code = params[:tour]
-      @tour = Tour.find_by_code(params[:tour])
+      @tour = Tour.find_by_id(params[:tour])
     end
 
     def set_user
-      redirect_to "/tours/#{@tour_code}/user" if params[:user_id].blank?
-      @user_id = params[:user_id]
+      redirect_to "/tours/#{@app_tour.id}/seluser" if params[:participant].blank?
+      @participant = params[:participant]
     end
 
     def set_nav_active
+      redirect_to '/tours' unless @app_tour
       @nav_active = "Item"
     end
 end

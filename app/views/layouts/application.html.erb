@@ -23,7 +23,7 @@
     <%= yield %>
 
     <!-- Fixed navbar -->
-    <div class="navbar navbar-default navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -36,13 +36,32 @@
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <% today = Date.today %>
-            <li class="<%= 'active' if @nav_active == 'Schedule' %>"><a href="/">スケジュール</a></li>
-            <li class="<%= 'active' if @nav_active == 'Event' %>"><a href="/events">イベントマスタ</a></li>
-            <li class="<%= 'active' if @nav_active == 'Cultivar' %>"><a href="/cultivars">品目マスタ</a></li>
-            <li class="<%= 'active' if @nav_active == 'User' %>"><a href="/users">ユーザーマスタ</a></li>
-            <li class="<%= 'active' if @nav_active == 'Tour' %>"><a href="/tours">TOUR</a></li>
-            <!-- li class="<%= 'active' if @nav_active == 'Item' %>"><a href="/items">ITEM</a></li -->
+            <% if @app_store %>
+              <li class="<%= 'active' if @nav_active == 'Schedule' %>">
+                <a href="/schedules/<%= today.year %>/<%= today.month %>/<%= today.day %>/<%= @app_store.id %>">スケジュール</a></li>
+              <li class="<%= 'active' if @nav_active == 'Event' %>"><a href="/events">イベントマスタ</a></li>
+              <li class="<%= 'active' if @nav_active == 'Cultivar' %>"><a href="/cultivars">品目マスタ</a></li>
+              <li class="<%= 'active' if @nav_active == 'User' %>"><a href="/users">ユーザーマスタ</a></li>
+              <!-- <li class="<%= 'active' if @nav_active == 'Tour' %>"><a href="/tours">TOUR</a></li> -->
+              <!-- li class="<%= 'active' if @nav_active == 'Item' %>"><a href="/items">ITEM</a></li -->
+            <% end %>
 
+            <% if @app_user %>
+              <li class="<%= 'active' if @nav_active == 'Schedule' %>">
+                <a href="/myschedule/<%= today.year %>/<%= today.month %>/<%= today.day %>/<%= @app_user.id %>">スケジュール</a></li>
+            <% end %>
+          </ul>
+
+          <ul class="nav navbar-nav pull-right">
+            <% if @app_store %>
+              <li><a href="#"><i class="fa fa-users"></i> <%= @app_store.name %></a></li>
+            <% end %>
+            <% if @app_user %>
+              <li><a href="#"><span class="glyphicon glyphicon-user"></span> <%= @app_user.name %>さん</a></li>
+            <% end %>
+            <% if @participant %>
+              <li><a href="#">お客様番号: <%= @participant %></a></li>
+            <% end %>
           </ul>
         </div><!--/.nav-collapse -->
       </div>

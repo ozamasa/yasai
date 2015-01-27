@@ -1,22 +1,24 @@
 class BasketsController < ApplicationController
-  before_action :set_tour, only: [:index, :destroy, :order]
-  before_action :set_user, only: [:index, :destroy, :order]
+#  before_action :set_tour, only: [:index, :destroy, :order]
+#  before_action :set_user, only: [:index, :destroy, :order]
   before_action :set_basket, only: [:destroy]
 
   # GET /baskets
   def index
-    @baskets = Basket.joins(:item).where(tour_code: @tour_code, user_id: @user_id)
+    @participant = params[:participant]
+    @baskets = Basket.joins(:item).where(tour_code: @app_tour.code, user_id: @participant)
   end
 
   def order
     ActiveRecord::Base.transaction do
 
-      @baskets = Basket.joins(:item).where(tour_code: @tour_code, user_id: @user_id)
+      @participant = params[:participant]
+      @baskets = Basket.joins(:item).where(tour_code: @app_tour.code, user_id: @participant)
       raise if @baskets.blank?
 
       @order = Order.new
-      @order.tour_id    = Tour.find_by_code(@tour_code).id
-      @order.user_id    = @user_id
+      @order.tour_id    = @app_tour.id
+      @order.user_id    = @participant
       
       amount = 0
       @baskets.each do |basket|
@@ -31,13 +33,13 @@ class BasketsController < ApplicationController
       @order.save!
 
       @baskets.destroy_all
-
     end
 
     redirect_to "/orders/#{@order.id}/complete"
 
   rescue => e
-    logger.info e.message
+    #logger.info e.message
+    #logger.info e.backtrace.join("\n")
     render :index
   end
 
@@ -76,8 +78,9 @@ class BasketsController < ApplicationController
 
   # DELETE /baskets/1
   def destroy
+    @participant = params[:participant]
     @basket.destroy
-    redirect_to baskets_url(tour: @tour_code, user_id: @user_id), notice: 'Basket was successfully destroyed.'
+    redirect_to baskets_url(tour: @app_tour.code, participant: @participant), notice: 'Basket was successfully destroyed.'
   end
 
   private

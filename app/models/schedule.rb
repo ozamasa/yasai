@@ -1,12 +1,13 @@
 class Schedule < ActiveRecord::Base
 
   belongs_to :cultivar
+  belongs_to :store
   belongs_to :producer, class_name: "User"
 
-  def self.sql_sum(date, cultivar_id = nil)
+  def self.sql_sum(date, store_id, cultivar_id = nil)
   	
   	tbl = Schedule.arel_table
-  	conditions = tbl[:date].eq(date)
+  	conditions = tbl[:date].eq(date).and(tbl[:store_id].eq(store_id))
     conditions = conditions.and(tbl[:cultivar_id].eq(cultivar_id)) if cultivar_id
 
   	schedules = Arel::Table.new :schedules

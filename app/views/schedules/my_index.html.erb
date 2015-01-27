@@ -9,11 +9,11 @@
   <% prevday = @from_date - 7.days %>
   <% nextday = @to_date + 1.day %>
   <li class="previous">
-    <a href="/schedules/<%= prevday.year %>/<%= prevday.month %>/<%= prevday.day %>/<%= @app_user %>"><i class="fa fa-arrow-left"></i> 前へ</a>
+    <a href="/myschedule/<%= prevday.year %>/<%= prevday.month %>/<%= prevday.day %>/<%= @app_user.id %>"><i class="fa fa-arrow-left"></i> 前へ</a>
   </li>
-  <li><a href="/schedules/<%= today.year %>/<%= today.month %>/<%= today.day %>/<%= @app_user %>">今日</a></li>
+  <li><a href="/myschedule/<%= today.year %>/<%= today.month %>/<%= today.day %>/<%= @app_user.id %>">今日</a></li>
   <li class="next">
-    <a href="/schedules/<%= nextday.year %>/<%= nextday.month %>/<%= nextday.day %>/<%= @app_user %>">次へ <i class="fa fa-arrow-right"></i></a>
+    <a href="/myschedule/<%= nextday.year %>/<%= nextday.month %>/<%= nextday.day %>/<%= @app_user.id %>">次へ <i class="fa fa-arrow-right"></i></a>
   </li>
 </ul>
 
@@ -23,37 +23,43 @@
     <thead>
       <tr>
         <% (@from_date..@to_date).each do |date| %>
-          <th style="width:150px;" class="cal_date <%= wday_color_class(date) %> text-center"><%= date.strftime('%-m月%-d日') %> (<%= wday_tag(date) %>)</th>
+          <th style="width:14%" class="cal_date <%= wday_color_class(date) %> text-center"><%= date.strftime('%-m月%-d日') %> (<%= wday_tag(date) %>)</th>
         <% end %>
       </tr>
     </thead>
 
     <tbody>
-      <% if false %>
       <tr>
         <% (@from_date..@to_date).each do |date| %>
-          <td><%= @weathers[date] %></td>
-        <% end %>
-      </tr>
-      <% end %>
-
-      <tr>
-        <% (@from_date..@to_date).each do |date| %>
-          <td class="<%= today_class(date) %>"><%= raw @events[date].map(&:display_event).join("<br />") %></td>
-        <% end %>
-      </tr>
-
-      <tr>
-        <% (@from_date..@to_date).each do |date| %>
-          <td class="<%= today_class(date) %>">
-          <%= raw Schedule.display_cultivar(date, @app_user).map{|t| 
-            "<a href='/schedules/#{t.id}/edit'>#{t.cultivar.name}: <span class='sum'>#{t.amount}</span> #{t.cultivar.unit}</a>"}.join("<br>") %>
+          <td class="<%= today_class(date) %>" style="padding:2px;">
+            <ul class="list-group">
+              <%= content_tag_for(:li, @events[date], class: 'list-group-item title_sm', style: "background-color:#f0fff0; border:0") do |event| %>
+                <%= event.display_event %>
+              <% end %>
+            </ul>
+          </td>
         <% end %>
       </tr>
 
       <tr>
         <% (@from_date..@to_date).each do |date| %>
-          <td class="text-center <%= today_class(date) %>"><a href="/schedules/<%= date.year %>/<%= date.month %>/<%= date.day %>/<%= @app_user %>/new" class="btn btn-default btn-xs">出荷予定を登録</a></td>
+          <td class="<%= today_class(date) %>" style="padding:2px;">
+            <ul class="list-group">
+              <% Schedule.display_cultivar(date, @app_user.id).each do |t| %>
+                <li class="list-group-item" style="border:0">
+                  <span class="label label-primary"><%= t.store.name rescue nil %></span>
+                  <%= raw "<br />" if t.store %>
+                  <a href="/schedules/<%= t.id %>/edit"><%= t.cultivar.name %> <span class='sum'><%= t.amount %></span> <%= t.cultivar.unit %></a></li>
+              <% end %>
+            </ul>
+          </td>
+
+        <% end %>
+      </tr>
+
+      <tr>
+        <% (@from_date..@to_date).each do |date| %>
+          <td class="text-center <%= today_class(date) %>"><a href="/schedules/<%= date.year %>/<%= date.month %>/<%= date.day %>/<%= @app_user.id %>/new" class="btn btn-default btn-xs">出荷予定登録</a></td>
         <% end %>
       </tr>
 
@@ -62,8 +68,25 @@
   </table>
 </div>
 
+<% if false %>
 <ul class="pager">
   <li><a href="/schedules/<%= today.year %>/<%= today.month %>/<%= today.day %>"><i class="fa fa-users"></i> 直売所スケジュール</a></li>
 </ul>
+<% end %>
 
 </div>
+
+<style type="text/css">
+.table {
+  min-width: 640px;
+  table-layout: fixed;
+  word-wrap: break-word;
+}
+
+.table-responsive > .table > thead > tr > th,
+.table-responsive > .table > thead > tr > td, 
+.table-responsive > .table > tbody > tr > td {
+  white-space: normal; 
+}
+
+</style>

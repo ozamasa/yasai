@@ -1,29 +1,29 @@
-<div class="container" style="margin-top:60px;">
+<div class="container" style="margin-top:80px;">
 
-  <div class="page-header">
-    <h1>ご注文ありがとうございました!</h1>
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class="text-center" style="color:#e74c3c;">ご注文ありがとうございました!</h1>
+    </div>
   </div>
 
-<div class="panel panel-primary">
-  <div class="panel-heading">
-    <h3 class="panel-title">ご注文内容</h3>
+  <div class="panel panel-default">
+    <div class="panel-heading"><span class="title_lg">ご注文内容</span></div>
+    <div class="panel-body">
+      <p>以下の内容でご注文を承りました。</p>
+
+      <dl class="dl-horizontal">
+        <dt>お客様番号</dt>
+        <dd><span class="title_lg" style="font-size:150%;color:#e74c3c;"><%= @order.user_id %></span></dd>
+
+        <dt>合計金額</dt>
+        <dd><span class="title_lg" style="font-size:150%;color:#e74c3c;"><%= number_to_currency(@order.amount, :format => "%u%n", :unit => "", precision: 0) %></span> <span style="font-size:80%;">円</span></dd>
+      </dl>
+    </div>
   </div>
-  <div class="panel-body">
-    <dl class="dl-horizontal">
-      <dt>お客様番号</dt>
-      <dd><%= @order.user_id %></dd>
-
-      <dt>合計金額</dt>
-      <dd><%= number_to_currency(@order.amount, :format => "%u%n", :unit => "￥", precision: 0) %></dd>
-    </dl>
-  </div>
-</div>
-
-
 
   <div class="row" style="text-align:center;">
-    <%= link_to "/tours/#{@tour.code}/user", :class => 'btn btn-default btn-lg' do %>
-      <i class="fa fa-sign-out"></i>　お買い物を終了する
+    <%= link_to "/tours/#{@app_tour.code}/seluser", :class => 'btn btn-default' do %>
+      <i class="fa fa-sign-out"></i> お買い物を終了する
     <% end %>
   </div>
 

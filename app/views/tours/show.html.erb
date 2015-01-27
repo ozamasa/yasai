@@ -1,30 +1,8 @@
 <div class="container" style="margin-top:60px;">
 
   <div class="page-header">
-    <h1>ツアー詳細</h1>
-
-    <%= link_to tours_path, :class => 'btn btn-default' do %>
-      <i class="fa fa-arrow-left"></i> ツアー一覧へ戻る
-    <% end %>
-
-    <%= link_to edit_tour_path(@tour), :class => 'btn btn-primary' do %>
-      <i class="fa fa-pencil"></i> 変更する
-    <% end %>
-
+    <h1><%= @tour.name %></h1>
+    <a href="/tours" class="btn btn-default btn-sm">ツアー一覧に戻る</a>
   </div>
-
-  <div class="panel panel-primary">
-    <div class="panel-body">
-      <dl class="dl-horizontal">
-        <dt>ツアーコード</dt>
-        <dd><%= @tour.code %></dd>
-
-        <dt>ツアー名称</dt>
-        <dd><%= @tour.name %></dd>
-      </dl>
-    </div>
-  </div>
-
-
 
 </div>
