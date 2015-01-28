@@ -47,8 +47,8 @@
 
     <div class="form-group">
       <div class="col-lg-10 col-lg-offset-2">
-        <%= link_to "/schedules/#{@schedule.date.year}/#{@schedule.date.month}/#{@schedule.date.day}/#{@app_user}", :class => 'btn btn-default' do %>
-          <span class="glyphicon glyphicon-list-alt"></span>マイカレンダーに戻る
+        <%= link_to "/myschedule/#{@schedule.date.year}/#{@schedule.date.month}/#{@schedule.date.day}/#{@app_user.id}", :class => 'btn btn-default' do %>
+          <span class="glyphicon glyphicon-list-alt"></span>マイスケジュールに戻る
         <% end %>
         <button type="submit" class="btn btn-primary">登録する</button>
       </div>
