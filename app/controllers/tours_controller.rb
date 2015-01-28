@@ -10,7 +10,7 @@ class ToursController < ApplicationController
   # GET /tours/seluser
   def seluser
     redirect_to action: :index unless params[:tour]
-    @tour = Tour.find_by_id(params[:tour])
+    @tour = Tour.find(params[:tour]) rescue nil
   end
 
   # GET /tours/1

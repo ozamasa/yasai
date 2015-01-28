@@ -106,7 +106,7 @@ class ItemsController < ApplicationController
 
     def set_tour
       redirect_to '/tours' if params[:tour].blank?
-      @tour = Tour.find_by_id(params[:tour])
+      @tour = Tour.find(params[:tour]) rescue nil
     end
 
     def set_user

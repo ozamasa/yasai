@@ -3,22 +3,23 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  before_filter :authorize  #, :unless => :except_cond?
+  before_filter :authorize, :unless => :except_cond?
 
 private
   def except_cond?
-    self.controller_name == 'tours' # || self.controller_name == 'items'
+    self.controller_name == 'users'
+    #self.controller_name == 'tours' # || self.controller_name == 'items'
   end
 
   def authorize
     uid = session[:user_id] || params[:user]
-    @app_user = User.find_by_id(uid) if uid
+    @app_user = User.find(uid) if uid
 
   	sid = session[:store_id] || params[:store]
-  	@app_store = Store.find_by_id(sid) if sid
+  	@app_store = Store.find(sid) if sid
 
     tid = session[:tour_id] || params[:tour]
-    @app_tour = Tour.find_by_id(tid) if tid
+    @app_tour = Tour.find(tid) if tid
 
     create_session
   end

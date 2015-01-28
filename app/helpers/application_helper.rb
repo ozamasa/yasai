@@ -18,6 +18,7 @@ module ApplicationHelper
   end
 
   def auth_class(idx)
+    return unless idx
     %w(primary danger success info)[idx - 1]
   end
 

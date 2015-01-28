@@ -48,8 +48,8 @@
           <td class="<%= today_class(date) %>" style="padding:2px;">
             <ul class="list-group">
               <% @schedules[date].each do |t| %>
-                <% cultivar = Cultivar.find_by_id(t.cultivar_id) %>
-                <li class="list-group-item" style="border:0"><%= "#{Cultivar.find_by_id(t.cultivar_id).name}: #{t.sum} #{cultivar.unit}" %></li>
+                <% cultivar = Cultivar.find(t.cultivar_id) rescue nil %>
+                <li class="list-group-item" style="border:0"><%= "#{cultivar.name rescue nil}: #{t.sum} #{cultivar.unit}" %></li>
               <% end %>
             </ul>
           </td>
