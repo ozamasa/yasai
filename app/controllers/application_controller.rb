@@ -18,7 +18,11 @@ private
   	sid = session[:store_id] || params[:store]
   	@app_store = Store.find(sid) if sid
 
-    tid = session[:tour_id] || params[:tour]
+    if self.controller_name == 'tours'
+      tid = params[:tour][:id] rescue nil
+    else
+      tid = session[:tour_id] || params[:tour]
+    end
     @app_tour = Tour.find(tid) if tid
 
     create_session
