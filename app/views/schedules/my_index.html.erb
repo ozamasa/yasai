@@ -32,11 +32,11 @@
       <tr>
         <% (@from_date..@to_date).each do |date| %>
           <td class="<%= today_class(date) %>" style="padding:2px;">
-            <ul class="list-group">
-              <%= content_tag_for(:li, @events[date], class: 'list-group-item title_sm', style: "background-color:#f0fff0; border:0") do |event| %>
-                <%= event.display_event %>
-              <% end %>
-            </ul>
+            <% @events[date].each do |event| %>
+              <div class="schedule event">
+                <span class="title_sm"><%= event.display_event %></span>
+              </div>
+            <% end %>
           </td>
         <% end %>
       </tr>
@@ -44,25 +44,18 @@
       <tr>
         <% (@from_date..@to_date).each do |date| %>
           <td class="<%= today_class(date) %>" style="padding:2px;">
-            <ul class="list-group">
-              <% Schedule.display_cultivar(date, @app_user.id).each do |t| %>
-                <li class="list-group-item" style="border:0">
-                  <span class="label label-primary"><%= t.store.name rescue nil %></span>
-                  <%= raw "<br />" if t.store %>
-                  <a href="/schedules/<%= t.id %>/edit"><%= t.cultivar.name %> <span class='sum'><%= t.amount %></span> <%= t.cultivar.unit %></a></li>
-              <% end %>
-            </ul>
+            <div class="text-left"><a href="/schedules/<%= date.year %>/<%= date.month %>/<%= date.day %>/<%= @app_user.id %>/new"><span class="title_lg glyphicon glyphicon-plus-sign"></span></a></div>
+
+            <% Schedule.display_cultivar(date, @app_user.id).each do |t| %>
+              <div class="schedule cultivar title">
+                <span class="label label-primary" class="text-left"><%= t.store.name rescue nil %></span>
+                <a href="/schedules/<%= t.id %>/edit" class="btn btn-link btn-xs"><%= t.cultivar.name %> <span class='sum'><%= t.amount %></span> <%= t.cultivar.unit %></a>
+              </div>
+            <% end %>
           </td>
 
         <% end %>
       </tr>
-
-      <tr>
-        <% (@from_date..@to_date).each do |date| %>
-          <td class="text-center <%= today_class(date) %>"><a href="/schedules/<%= date.year %>/<%= date.month %>/<%= date.day %>/<%= @app_user.id %>/new" class="btn btn-default btn-xs">出荷予定登録</a></td>
-        <% end %>
-      </tr>
-
     </tbody>
 
   </table>
@@ -82,11 +75,25 @@
   table-layout: fixed;
   word-wrap: break-word;
 }
-
 .table-responsive > .table > thead > tr > th,
 .table-responsive > .table > thead > tr > td, 
 .table-responsive > .table > tbody > tr > td {
   white-space: normal; 
 }
-
+.schedule {
+  padding: 2px;
+  margin:3px;
+  border-radius: 5px;
+}
+.event {
+  background-color: #F7F7F7;  
+}
+.cultivar {
+  background-color: #F0FFF0;
+  text-align: left;  
+}
+.btn {
+  text-align: left;
+  white-space: normal;
+}
 </style>

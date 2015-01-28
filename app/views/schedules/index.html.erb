@@ -33,12 +33,11 @@
       <tr>
         <% (@from_date..@to_date).each do |date| %>
           <td class="<%= today_class(date) %>" style="padding:2px;">
-            <ul class="list-group">
-              <%= content_tag_for(:li, @events[date], class: 'list-group-item title_sm', style: "background-color:#f0fff0; border:0") do |event| %>
-                <%= event.display_event %>
-              <% end %>
-            </ul>
-          <%#= raw "#{@events[date].map(&:display_event).join('<br />')}" %>
+            <% @events[date].each do |event| %>
+              <div class="schedule event">
+                <span class="title_sm"><%= event.display_event %></span>
+              </div>
+            <% end %>
           </td>
         <% end %>
       </tr>
@@ -46,23 +45,23 @@
       <tr>
         <% (@from_date..@to_date).each do |date| %>
           <td class="<%= today_class(date) %>" style="padding:2px;">
-            <ul class="list-group">
-              <% @schedules[date].each do |t| %>
-                <% cultivar = Cultivar.find(t.cultivar_id) rescue nil %>
-                <li class="list-group-item" style="border:0"><%= "#{cultivar.name rescue nil}: #{t.sum} #{cultivar.unit}" %></li>
-              <% end %>
-            </ul>
+            <% @schedules[date].each do |t| %>
+              <div class="schedule cultivar title">
+              <% cultivar = Cultivar.find(t.cultivar_id) rescue nil %>
+              <span class="title_sm"><%= "#{cultivar.name rescue nil}: #{t.sum} #{cultivar.unit}" %></span>
+              </div>
+            <% end %>
           </td>
         <% end %>
       </tr>
 
       <tr>
         <% (@from_date..@to_date).each do |date| %>
-          <td class="text-center <%= today_class(date) %>">
-            <a href="/schedules/show/<%= date.year %>/<%= date.month %>/<%= date.day %>/<%= @app_store.id %>" class="btn btn-default btn-xs">入荷予定詳細</a></td>
+          <td class="<%= today_class(date) %>" style="padding:2px;">
+            <div class="text-center"><a href="/schedules/show/<%= date.year %>/<%= date.month %>/<%= date.day %>/<%= @app_store.id %>"><i class="fa fa-bars"></i></a></div>
+          </td>
         <% end %>
       </tr>
-
     </tbody>
 
   </table>
@@ -88,6 +87,22 @@
 .table-responsive > .table > thead > tr > td, 
 .table-responsive > .table > tbody > tr > td {
   white-space: normal; 
+}
+.schedule {
+  padding: 2px;
+  margin:3px;
+  border-radius: 5px;
+}
+.event {
+  background-color: #F7F7F7;  
+}
+.cultivar {
+  background-color: #F0FFF0;
+  text-align: left;  
+}
+.btn {
+  text-align: left;
+  white-space: normal;
 }
 </style>
 
