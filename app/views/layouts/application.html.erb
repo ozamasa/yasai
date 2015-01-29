@@ -34,14 +34,14 @@
           <a class="navbar-brand" href="/"><i class="fa fa-leaf fa-lg"></i> OYasai</a>
         </div>
         <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
+          <ul class="nav navbar-nav" style="font-size:80%">
             <% today = Date.today %>
             <% if @app_store %>
               <li class="<%= 'active' if @nav_active == 'Schedule' %>">
                 <a href="/schedules/<%= today.year %>/<%= today.month %>/<%= today.day %>/<%= @app_store.id %>">スケジュール</a></li>
-              <li class="<%= 'active' if @nav_active == 'Event' %>"><a href="/events">イベントマスタ</a></li>
-              <li class="<%= 'active' if @nav_active == 'Cultivar' %>"><a href="/cultivars">品目マスタ</a></li>
-              <li class="<%= 'active' if @nav_active == 'User' %>"><a href="/users">ユーザーマスタ</a></li>
+              <li class="<%= 'active' if @nav_active == 'Event' %>"><a href="/events">イベント</a></li>
+              <li class="<%= 'active' if @nav_active == 'Cultivar' %>"><a href="/cultivars">品目</a></li>
+              <li class="<%= 'active' if @nav_active == 'User' %>"><a href="/users">ユーザー</a></li>
               <!-- <li class="<%= 'active' if @nav_active == 'Tour' %>"><a href="/tours">TOUR</a></li> -->
               <!-- li class="<%= 'active' if @nav_active == 'Item' %>"><a href="/items">ITEM</a></li -->
             <% end %>

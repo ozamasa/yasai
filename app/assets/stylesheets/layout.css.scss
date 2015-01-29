@@ -1,0 +1,204 @@
+/* color */
+$black: #000;
+$white: #FFF;
+$silver: #bdc3c7;
+$success: #18bc9c;
+$light_grey: #F7F7F7;
+$red: #e74c3c;
+$grey: #95a5a6;
+$yellow: #f1c40f;
+
+$font: "Lato", Arial, "ヒラギノ角ゴPro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", sans-serif;
+
+body {
+	background: rgb(249,252,247); /* Old browsers */
+	background: -moz-radial-gradient(center, ellipse cover,  rgba(249,252,247,1) 0%, rgba(245,249,240,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(249,252,247,1)), color-stop(100%,rgba(245,249,240,1))); /* Chrome,Safari4+ */
+	background: -webkit-radial-gradient(center, ellipse cover,  rgba(249,252,247,1) 0%,rgba(245,249,240,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-radial-gradient(center, ellipse cover,  rgba(249,252,247,1) 0%,rgba(245,249,240,1) 100%); /* Opera 12+ */
+	background: -ms-radial-gradient(center, ellipse cover,  rgba(249,252,247,1) 0%,rgba(245,249,240,1) 100%); /* IE10+ */
+	background: radial-gradient(ellipse at center,  rgba(249,252,247,1) 0%,rgba(245,249,240,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f9fcf7', endColorstr='#f5f9f0',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+.container {
+	font-family: $font;
+}
+
+.tour {
+  	border-collapse: separate;
+  	border-spacing: 0px 15px;
+
+    th {
+      	padding: 10px;
+	    background: $success;
+	    vertical-align: middle;
+	    text-align: left;
+	    overflow: visible;
+	    position: relative;
+	    color: #fff;
+	    font-family: $font;
+	    font-weight: bold;
+	    font-size: 120%;
+    }
+
+    th:after {
+    	left: 100%;
+		top: 50%;
+		border: solid transparent;
+		content: " ";
+		height: 0;
+		width: 0;
+		position: absolute;
+		pointer-events: none;
+		border-color: rgba(136, 183, 213, 0);
+		border-left-color: $success;
+		border-width: 10px;
+		margin-top: -10px;	
+    }
+
+    td {
+      	padding: 10px;
+	    background: $light_grey;
+	    /* width: 360px; */
+	    padding-left: 20px;
+    }
+}
+
+.panel {
+	@include　line-top(.1, .2);
+	@include　line-left(.1, .2);
+	@include　line-right(.1, .2);
+	@include　line-bottom(.1, .2);
+}
+
+.item {
+	@extend .tour;
+    th {
+    	font-size: 100%;
+	    background: $grey;
+    }
+    th:after {
+		border-left-color: $grey;
+    }
+    td {
+	    background: $white;
+	    padding: 0px 20px 0px 20px;
+    }
+    &.list-group {
+		margin-bottom: 0px;
+		padding-left: 0;
+	}
+    &.list-group-item {
+		border: none;
+	}	
+
+}
+
+.amount {
+	font-size: 120%;
+	color: $yellow;
+	font-weight: bold;
+	&.unit {
+		font-size: 100%;	
+	}
+}
+
+.title {
+	font-family: $font;
+
+	&.page_title {
+		font-size: 150%;
+		text-shadow: -1px 1px 0 rgba(255, 255, 255, 1);
+		font-weight: bold;
+	}
+	&.title_lg {
+		font-size: 110%;
+		text-shadow: -1px 1px 0 rgba(255, 255, 255, 1);
+	}
+	&.title_sm {
+		font-size: 90%;	
+	}
+}
+
+.table {
+	background-color: $white;
+
+	th {
+		background-color: #bdc3c7;
+	}
+}
+
+@mixin line-top($black: .1, $white: .5){
+	border-top: 1px solid rgba(0, 0, 0, .2);
+	@include box-shadow(rgba(255, 255, 255, .3) 0 1px 0);
+}
+@mixin line-bottom($black: .1, $white: .5){
+	border-bottom: 1px solid rgba(0, 0, 0, .2);
+	@include box-shadow(rgba(255, 255, 255, .3)　0 1px 0);
+}
+@mixin line-left($black: .1, $white: .5){
+	border-left: 1px solid rgba(0, 0, 0, .2);
+	 @include box-shadow(rgba(255, 255, 255, .3) -1px 0 0);
+}
+@mixin line-right($black: .1, $white: .5){
+	border-right: 1px solid rgba(0, 0, 0, .2);
+	@include box-shadow(rgba(255, 255, 255, .3) -1px 0 0);
+}
+@mixin ts000($op : .4){
+	text-shadow: 1px -1px rgba(0, 0, 0, $op);
+}
+@mixin tsfff {
+	/* text-shadow: -1px 1px rgba(0, 0, 0, $op); */
+	text-shadow: -1px 1px 0 rgba(255, 255, 255, 1);
+}
+@mixin button($color: #48B1F2, $font-size: 16px, $text-color: white){
+	display: inline-block;
+	background-origin: border-box;
+	position: relative;
+	font-weight: bold;
+	@include ts000(.1);
+	@include gradient-top-lighten($color, 5%);
+	/* @include border-radius(4px); */
+	/* @include emboss-box($border: .1, $shadow: .1, $highlight: .2); */
+	color: rgba($text-color, .9);
+	text-align: center;
+	font-size: $font-size;
+	padding: 0 ($font-size * 2);
+	height: $font-size * 3;
+	line-height: $font-size * 3;
+	i {
+		font-size: 130%;
+		margin-right: 5px; 
+		color: rgba($text-color, .5);
+	}
+	&:hover {
+	@include gradient-top-lighten(lighten($color, 5%), 5%);
+	text-decoration: none;
+	color: $text-color;
+		i {
+		  color: $text-color;
+		}
+	}
+	&:active {
+		@include gradient-top-lighten($color, 5%);
+		top: 1px;
+	}
+}
+
+@mixin gradient-top-lighten($color:#666, $lighten:10%){
+  background-color: $color;
+  /* @include filter-gradient(lighten($color, $lighten), $color, vertical); */
+  /* @include background-image(linear-gradient(lighten($color, $lighten) 0%, $color 100%)); */
+}
+
+@mixin gradient-top-darken($color:#666, $darken:10%){
+  background-color: $color;
+  /* @include filter-gradient(darken($color, $darken), $color, vertical); */
+  /* @include background-image(linear-gradient(darken($color,  $darken) 0%, $color 100%)); */
+}
+
+.zuruibtn {
+	@include button(#95a5a6, 13px, white);
+	border-radius: 4px;
+}

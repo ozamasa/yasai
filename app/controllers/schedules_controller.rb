@@ -16,8 +16,9 @@ class SchedulesController < ApplicationController
       @schedules[date] = Schedule.find_by_sql(Schedule.sql_sum(date, @app_store.id))
 
       tbl = Event.arel_table
-      conditions = tbl[:start_at].in(date.beginning_of_day..date.end_of_day).or(
-        tbl[:end_at].in(date.beginning_of_day..date.end_of_day))
+      conditions = tbl[:store_id].eq(@app_store.id)
+      conditions = conditions.and(tbl[:start_at].in(date.beginning_of_day..date.end_of_day).or(
+        tbl[:end_at].in(date.beginning_of_day..date.end_of_day)))
       @events[date]     = Event.where(conditions)
     end
   end
@@ -67,8 +68,6 @@ class SchedulesController < ApplicationController
 
   # POST /schedules
   def create
-    logger.info @app_user.inspect
-
     @schedule = Schedule.new(schedule_params)
     @schedule.producer_id = @app_user.id
     if @schedule.save
@@ -81,7 +80,7 @@ class SchedulesController < ApplicationController
   # PATCH/PUT /schedules/1
   def update
     if @schedule.update(schedule_params)
-      redirect_to @schedule, notice: 'Schedule was successfully updated.'
+      redirect_to "/myschedule/#{@schedule.date.year}/#{@schedule.date.month}/#{@schedule.date.day}/#{@app_user.id}", notice: 'Schedule was successfully created.'
     else
       render :edit
     end

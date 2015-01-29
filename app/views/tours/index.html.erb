@@ -1,34 +1,36 @@
 <div class="container" style="margin-top:60px;">
-　 <div class="page-header">
-    <span class="page_title"><i class="fa fa-suitcase"></i> ツアー一覧</span>
-    <%= link_to new_tour_path, :class => 'btn btn-primary pull-right' do %>
-      <span class="glyphicon glyphicon-plus"></span> 新規登録
+　 <div class="page-header" style="vertical-align:middle">
+    <span class="title page_title"><span class="glyphicon glyphicon-map-marker"></span> ツアー一覧 </span>
+    <%= link_to new_tour_path, :class => 'btn btn-default btn-xs' do %>
+      <span class="glyphicon glyphicon-plus"></span>
     <% end %>
   </div>
 
-  <div class="row">
-    <%= content_tag_for(:div, @tours, class: "col-md-4 col-sm-6") do |tour| %>
-      <div class="panel panel-info">
-        <div class="panel-heading"><span class="title_lg"><%= tour.name %></span>
-          <span class="pull-right" style="font-size:80%">
-          <%= link_to edit_tour_path(tour), class: "btn btn-default btn-xs" do %>
-            <span class="glyphicon glyphicon-pencil text-left"></span>
+  <div class="table-responsive">
+    <table class="tour">
+      <tbody>
+          <% @tours.each do |tour| %>
+            <tr>
+                <th class="arrow_box"><%= tour.name %>
+                  <span class="pull-right">
+                  <%= link_to edit_tour_path(tour), class: "btn btn-default btn-xs" do %>
+                    <span class="glyphicon glyphicon-pencil text-left"></span>
+                  <% end %>
+                  <%= link_to tour, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default btn-xs" do %>
+                    <span class="glyphicon glyphicon-trash"></span>
+                  <% end %>
+                  </span>
+                </th>
+                <td>
+                  <span style="font-size:200%">
+                    <%= link_to "/tours/#{tour.id}/seluser" do %>
+                      <i class="fa fa-arrow-right"></i>
+                    <% end %>
+                  </span>
+                </td>
+            </tr>
           <% end %>
-          <%= link_to tour, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-default btn-xs" do %>
-            <span class="glyphicon glyphicon-trash"></span>
-          <% end %>
-          </span>
-        </div>
-        <div class="panel-body">
-          <p>説明</p>
-        </div>
-        <ul class="list-group">
-          <li class="list-group-item text-center">
-            <%= link_to "/tours/#{tour.id}/seluser", class: "btn btn-success btn-sm" do %>
-              <i class="fa fa-shopping-cart"></i> お買いもの画面へ
-            <% end %></li>
-        </ul>
-      </div>
-    <% end %>
+      </tbody>
+    </table>
   </div>
 </div>

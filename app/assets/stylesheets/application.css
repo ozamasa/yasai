@@ -16,6 +16,7 @@
  *= require flatly/loader
  *= require flatly/bootswatch
  *= require flatly/font-awesome
+ *= require layout
  */
 
 .show-grid [class^=col-] {
@@ -36,21 +37,4 @@
 .sum {
   font-size: 110%;
 }
-.title_lg {
-  font-size: 120%;
-  font-weight: bold;  
-  font-family: "Lato", Arial, "ヒラギノ角ゴPro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", sans-serif;  
-}
-.title {
-  font-family: "Lato", Arial, "ヒラギノ角ゴPro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", sans-serif;  
-}
-.title_sm {
-  font-size: 90%;	
-  font-family: "Lato", Arial, "ヒラギノ角ゴPro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", sans-serif;  
-}
 
-.page_title {
-  font-size: 150%;
-  font-weight: bold;
-  font-family: "Lato", Arial, "ヒラギノ角ゴPro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", sans-serif;  
-}

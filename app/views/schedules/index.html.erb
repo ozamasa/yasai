@@ -1,7 +1,7 @@
 <div class="container" style="margin-top:60px;">
 
 <div class="page-header">
-  <h1><%= @app_store.try(:name) %>スケジュール</h1>
+  <div class="title page_title"><span class="glyphicon glyphicon-calendar"></span> <%= @app_store.try(:name) %>スケジュール</div>
 </div>
 
 <ul class="pager">
@@ -24,7 +24,7 @@
     <thead>
       <tr>
         <% (@from_date..@to_date).each do |date| %>
-          <th style="width:14%" class="cal_date <%= wday_color_class(date) %> text-center"><%= date.strftime('%-m月%-d日') %> (<%= wday_tag(date) %>)</th>
+          <th style="width:14%" class="<%= wday_color_class(date) %> text-center"><%= date.strftime('%-m月%-d日') %> (<%= wday_tag(date) %>)</th>
         <% end %>
       </tr>
     </thead>
@@ -35,7 +35,7 @@
           <td class="<%= today_class(date) %>" style="padding:2px;">
             <% @events[date].each do |event| %>
               <div class="schedule event">
-                <span class="title_sm"><%= event.display_event %></span>
+                <span class="title title_sm"><%= event.display_event %></span>
               </div>
             <% end %>
           </td>
@@ -48,7 +48,7 @@
             <% @schedules[date].each do |t| %>
               <div class="schedule cultivar title">
               <% cultivar = Cultivar.find(t.cultivar_id) rescue nil %>
-              <span class="title_sm"><%= "#{cultivar.name rescue nil}: #{t.sum} #{cultivar.unit}" %></span>
+              <span class="title title_sm"><%= "#{cultivar.name rescue nil}: #{t.sum} #{cultivar.unit}" %></span>
               </div>
             <% end %>
           </td>

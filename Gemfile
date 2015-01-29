@@ -13,6 +13,11 @@ group :production do
   gem 'rails_12factor', '0.0.2'
 end
 
+group :assets do
+  gem 'sass-rails'
+  gem 'compass-rails'
+end
+
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 

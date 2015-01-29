@@ -1,12 +1,10 @@
 <div class="container" style="margin-top:60px;">
 
 <div class="page-header">
-  <h1><%= @app_store.try(:name) %>イベント一覧</h1>
-
-  <%= link_to new_event_path, :class => 'btn btn-primary' do %>
-    <span class="glyphicon glyphicon-plus"></span>　新規登録
+  <span class="title page_title"><span class="glyphicon glyphicon-bookmark"></span> <%= @app_store.try(:name) %>イベント一覧</span>
+  <%= link_to new_event_path, :class => 'btn btn-default btn-xs' do %>
+    <span class="glyphicon glyphicon-plus"></span>
   <% end %>
-
 </div>
 
 

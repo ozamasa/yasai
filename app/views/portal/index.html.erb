@@ -28,10 +28,11 @@
         <div class="col-md-4">
           <div class="panel panel-default">
             <!-- Default panel contents -->
-            <div class="panel-heading">直売所</div>
+            <div class="panel-heading"><span class="title title title_lg">直売所</span></div>
             <ul class="list-group">
               <%= content_tag_for(:li, @stores, class: 'list-group-item') do |store| %>
-                <a href="/schedules/<%= today.year %>/<%= today.month %>/<%= today.day %>/<%= store.id %>"><i class="fa fa-users"></i> <%= store.name %></a>
+                <a href="/schedules/<%= today.year %>/<%= today.month %>/<%= today.day %>/<%= store.id %>">
+                <i class="fa fa-users"></i></span> <%= store.name %></a>
               <% end %>
             </ul>
           </div>
@@ -39,7 +40,7 @@
         <div class="col-md-4">
           <div class="panel panel-default">
             <!-- Default panel contents -->
-            <div class="panel-heading">ユーザー</div>
+            <div class="panel-heading"><span class="title title_lg">生産者</span></div>
             <ul class="list-group">
               <%= content_tag_for(:li, @users, class: 'list-group-item') do |user| %>
                 <a href="/myschedule/<%= today.year %>/<%= today.month %>/<%= today.day %>/<%= user.id %>"><span class="glyphicon glyphicon-user"></span> <%= user.name %></a>
@@ -51,9 +52,9 @@
         <div class="col-md-4">
           <div class="panel panel-default">
             <!-- Default panel contents -->
-            <div class="panel-heading">利用者</div>
+            <div class="panel-heading"><span class="title title_lg">ツアー</span></div>
             <ul class="list-group">
-              <li class="list-group-item"><a href="/tours"><i class="fa fa-suitcase"></i> ツアー</a></li>
+              <li class="list-group-item"><a href="/tours"><span class="glyphicon glyphicon-map-marker"></span> ツアー一覧</a></li>
 
             </ul>
           </div>

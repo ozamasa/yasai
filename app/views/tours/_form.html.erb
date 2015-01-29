@@ -46,6 +46,8 @@
 
     <div class="form-group">
       <div class="col-lg-10 col-lg-offset-2">
+        <a href="/schedules/<%= @date.year %>/<%= @date.month %>/<%= @date.day %>/<%= @app_store.id %>" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-circle-arrow-left"></span> スケジュールに戻る</a>
+        
         <%= link_to "/tours", :class => 'btn btn-default' do %>
           <span class="glyphicon glyphicon-list-alt"></span> ツアー一覧に戻る
         <% end %>
