@@ -45,13 +45,11 @@
     </div>
 
     <div class="form-group">
-      <div class="col-lg-10 col-lg-offset-2">
-        <a href="/schedules/<%= @date.year %>/<%= @date.month %>/<%= @date.day %>/<%= @app_store.id %>" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-circle-arrow-left"></span> スケジュールに戻る</a>
-        
-        <%= link_to "/tours", :class => 'btn btn-default' do %>
-          <span class="glyphicon glyphicon-list-alt"></span> ツアー一覧に戻る
+      <div class="col-lg-10 col-lg-offset-2">        
+        <%= link_to "/tours", :class => 'btn btn-default btn-sm' do %>
+          <span class="glyphicon glyphicon-circle-arrow-left"></span> ツアー一覧に戻る
         <% end %>
-        <button type="submit" class="btn btn-primary">登録する</button>
+        <button type="submit" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-ok-sign"></span> 登録する</button>
       </div>
     </div>
   </fieldset>
