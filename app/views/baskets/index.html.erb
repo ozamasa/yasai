@@ -3,6 +3,8 @@
     <h1><i class="fa fa-shopping-cart fa-lg"></i>　カート</h1>
   </div>
 
+  <form class="form-horizontal">
+
     <div class="table-responsive">
       <table class="table table-bordered table-hover">
         <thead>
@@ -54,23 +56,26 @@
       </table>
     </div>
 
-    <div class="row">
-      <div class="pull-left">
-        <%= link_to "/shopping/#{@app_tour.code}/#{@participant}", :class => 'btn btn-default' do %>
-          <i class="fa fa-arrow-left"></i> 商品一覧へ戻る
-        <% end %>
+    <fieldset>
+      <div class="form-group">
+        <div class="col-lg-offset-2 col-lg-10">
+          <%= link_to "/shopping/#{@app_tour.code}/#{@participant}", :class => 'btn btn-default btn-sm' do %>
+            <i class="fa fa-arrow-left"></i> 商品一覧へ戻る
+          <% end %>
 
-        <%= link_to "/tours/#{@app_tour.code}/seluser", :class => 'btn btn-default' do %>
-          <i class="fa fa-minus-circle"></i>　お買い物をやめる
-        <% end %>
-      </div>
+          <%= link_to "/tours/#{@app_tour.code}/seluser", :class => 'btn btn-default btn-sm' do %>
+            <i class="fa fa-minus-circle"></i>　お買い物をやめる
+          <% end %>
 
-      <div class="pull-right">
-        <%= link_to "/baskets/#{@app_tour.code}/order/#{@participant}", :class => 'btn btn-danger' do %>
-          <i class="fa fa-check"></i> <strong>注文を確定する</strong>
-        <% end %>
+          <div class="pull-right">
+            <%= link_to "/baskets/#{@app_tour.code}/order/#{@participant}", :class => 'btn btn-danger btn-sm' do %>
+              <i class="fa fa-check"></i> <strong>注文を確定する</strong>
+            <% end %>
+          </div>
+        </div>
       </div>
-    </div>
+    </fieldset>
+  </form>
 
 </div>
 

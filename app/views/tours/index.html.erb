@@ -11,7 +11,7 @@
       <tbody>
           <% @tours.each do |tour| %>
             <tr>
-                <th class="arrow_box"><%= tour.name %>
+                <th class="arrow_box"><span class="title title_sm"><%= tour.name %></span>
                   <span class="pull-right">
                   <%= link_to edit_tour_path(tour), class: "btn btn-default btn-xs" do %>
                     <span class="glyphicon glyphicon-pencil text-left"></span>

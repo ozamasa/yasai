@@ -2,7 +2,7 @@
 
   <div class="row">
     <div class="col-md-12">
-      <h1 class="text-center" style="color:#e74c3c;">ご注文ありがとうございました!</h1>
+      <h2 class="text-center" style="color:#e74c3c;">ご注文ありがとうございました</h2>
     </div>
   </div>
 
@@ -13,16 +13,16 @@
 
       <dl class="dl-horizontal">
         <dt>お客様番号</dt>
-        <dd><span class="title_lg" style="font-size:150%;color:#e74c3c;"><%= @order.user_id %></span></dd>
+        <dd><span class="title title_lg" style="font-size:150%;color:#e74c3c;"><%= @order.user_id %></span></dd>
 
         <dt>合計金額</dt>
-        <dd><span class="title_lg" style="font-size:150%;color:#e74c3c;"><%= number_to_currency(@order.amount, :format => "%u%n", :unit => "", precision: 0) %></span> <span style="font-size:80%;">円</span></dd>
+        <dd><span class="title title_lg" style="font-size:150%;color:#e74c3c;"><%= number_to_currency(@order.amount, :format => "%u%n", :unit => "", precision: 0) %></span> <span style="font-size:80%;">円</span></dd>
       </dl>
     </div>
   </div>
 
   <div class="row" style="text-align:center;">
-    <%= link_to "/tours/#{@app_tour.code}/seluser", :class => 'btn btn-default' do %>
+    <%= link_to "/tours/#{@app_tour.code}/seluser", :class => 'btn btn-default btn-sm' do %>
       <i class="fa fa-sign-out"></i> お買い物を終了する
     <% end %>
   </div>
